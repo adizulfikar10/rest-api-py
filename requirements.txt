@@ -1,0 +1,7 @@
+Flask==3.0.3
+sqlalchemy
+flask_sqlalchemy
+flask_migrate
+Flask-Seeder
+mysqlclient
+python-dotenv

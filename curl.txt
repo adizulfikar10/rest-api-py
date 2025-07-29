@@ -1,0 +1,49 @@
+// POST
+curl -v http://localhost:5050/api/transactions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "id": "trx-002",
+    "description": "Payment for order",
+    "code": "TRX001",
+    "rate_euro": 1.5,
+    "details": [
+      {
+        "id": "detail-002",
+        "transaction_category_id": "1",
+        "name": "Item A",
+        "value_idr": 10000
+      },
+      {
+        "id": "detail-003",
+        "transaction_category_id": "2",
+        "name": "Item B",
+        "value_idr": 10000
+      }
+    ]
+  }'
+
+// UPDATE
+curl -v -X PUT http://localhost:5050/api/transaction/TRX001 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "description": "Updated payment for order",
+    "code": "TRX001",
+    "rate_euro": 2.0,
+    "details": [
+      {
+        "id": "detail-002",
+        "transaction_category_id": "2",
+        "name": "Updated Item A",
+        "value_idr": 15000
+      },
+      {
+        "id": "detail-003",
+        "transaction_category_id": "2",
+        "name": "Updated Item B",
+        "value_idr": 20000
+      }
+    ]
+  }'
+
+  // DELETE
+  curl -v -X DELETE http://localhost:5050/api/transaction/TRX001

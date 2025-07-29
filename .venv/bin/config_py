@@ -1,0 +1,8 @@
+#!/Users/adizulfikar/Project/tonjoo/rest-api-py/.venv/bin/python3
+# -*- coding: utf-8 -*-
+import re
+import sys
+from config_py.bin.config_py import config_py
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(config_py())
