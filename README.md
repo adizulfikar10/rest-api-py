@@ -17,6 +17,20 @@ DB_NAME=tonjoo_transaction
 SQLALCHEMY_DATABASE_URI=mysql://root:password@localhost:3306/tonjoo_transaction
 ```
 
+### Activate
+
+To activate the virtual environment for this project, follow the instructions below based on your operating system:
+
+#### For Windows
+
+1. Open Command Prompt or PowerShell.
+2. Navigate to the project directory.
+3. Run the following command:
+
+   ```bash
+   source .\venv\Scripts\activate
+   ```
+
 ### SQLAlchemy Models
 
 See `api/models/` for model definitions:
