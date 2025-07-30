@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_seeder import FlaskSeeder
-from api import category_bp, transaction_bp
+from api import category_bp, transaction_bp, fibonnaci_bp
 from api.models.db import db
 from flask_migrate import Migrate
 from api.models import Base
@@ -21,6 +21,7 @@ CORS(app)
 
 app.register_blueprint(category_bp, url_prefix='/api')
 app.register_blueprint(transaction_bp, url_prefix='/api')
+app.register_blueprint(fibonnaci_bp, url_prefix='/api')
 
 # Flask-Migrate setup
 db.init_app(app)
