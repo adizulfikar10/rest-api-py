@@ -22,6 +22,41 @@ curl -v http://localhost:5050/api/transactions \
     ]
   }'
 
+
+  curl 'http://localhost:5050/api/transactions' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'Accept-Language: en-ID,en;q=0.9,id-ID;q=0.8,id;q=0.7,en-GB;q=0.6,en-US;q=0.5' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: http://localhost:3000' \
+  -H 'Referer: http://localhost:3000/' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Site: same-site' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  --data-raw '{ "id": "trx-003","code":"AJSDASDN","date_paid":"2025-07-29","description":"Descrip","rate_euro":12,"details":[{ "id": "detail-006","name":"TRANSAKSI","value_idr":200000,"transaction_category_id":"1"},{ "id": "detail-007","name":"IN","value_idr":500000,"transaction_category_id":"2"}]}'
+
+
+curl 'http://localhost:5050/api/transactions/TRX-0000' \
+  -X 'PUT' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'Accept-Language: en-ID,en;q=0.9,id-ID;q=0.8,id;q=0.7,en-GB;q=0.6,en-US;q=0.5' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: http://localhost:3000' \
+  -H 'Referer: http://localhost:3000/' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Site: same-site' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  --data-raw '{"id":"c5af1898-22f7-432e-b4de-bc5f9137af60","code":"TRX-0000","date_paid":"2025-07-30","description":"Desc","rate_euro":12,"details":[{"name":"oke2","value_idr":200000,"transaction_category_id":"2"},{"name":"test","value_idr":100000,"transaction_category_id":"1"}]}'
+
 // UPDATE
 curl -v -X PUT http://localhost:5050/api/transaction/TRX001 \
   -H "Content-Type: application/json" \

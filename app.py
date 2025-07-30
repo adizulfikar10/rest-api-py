@@ -17,7 +17,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Enable CORS for frontend
-CORS(app, origins=["http://localhost:3000"])
+CORS(app)
 
 app.register_blueprint(category_bp, url_prefix='/api')
 app.register_blueprint(transaction_bp, url_prefix='/api')

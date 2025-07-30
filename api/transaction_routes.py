@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from api.models import TransactionHeader
 from api.models import TransactionDetail
 from api.db import SessionLocal
+import uuid
 
 transaction_bp = Blueprint('transaction', __name__)
 
@@ -13,13 +14,17 @@ def get_transactions():
         page = int(request.args.get('page', 1))
         per_page = int(request.args.get('per_page', 10))
         code = request.args.get('code')
-        category_id = request.args.get('category_id')
+        # category_id = request.args.get('category_id')
 
         query = session.query(TransactionHeader)
+
+        print(f"Code to filter: {request}")  # Debugging line
+
         if code:
             query = query.filter(TransactionHeader.code.like(f"%{code}%"))
-        if category_id:
-            query = query.join(TransactionHeader.details).filter(TransactionDetail.transaction_category_id == category_id)
+            print(f"Filtering by code: {code}")
+        # if category_id:
+        #     query = query.join(TransactionHeader.details).filter(TransactionDetail.transaction_category_id == category_id)
 
         total = query.count()
         transactions = query.offset((page-1)*per_page).limit(per_page).all()
@@ -64,26 +69,23 @@ def create_transaction():
         data = request.get_json()
 
         # Validate required fields
-        required_fields = ['id', 'description', 'code', 'rate_euro', 'details']
+        required_fields = [ 'description', 'code', 'rate_euro', 'details','date_paid']
         for field in required_fields:
             if field not in data:
                 return jsonify({'error': f'Missing field: {field}'}), 400
 
-        # Parse date_paid or use now
-        date_paid = datetime.now()
-
         trx = TransactionHeader(
-            id=data['id'],
+            id=uuid.uuid4(),
             description=data['description'],
             code=data['code'],
             rate_euro=data['rate_euro'],
-            date_paid=date_paid
+            date_paid=data['date_paid']
         )
 
         details_data = data['details']
         for detail in details_data:
             trx_detail = TransactionDetail(
-                id=detail.get('id'),
+                id=uuid.uuid4(),
                 transaction_category_id=detail.get('transaction_category_id'),
                 name=detail.get('name'),
                 value_idr=detail.get('value_idr')
@@ -113,7 +115,7 @@ def create_transaction():
     finally:
         session.close()
 
-@transaction_bp.route('/transaction/<code>', methods=['PUT'])
+@transaction_bp.route('/transactions/<code>', methods=['PUT'])
 def update_transaction(code):
     session = SessionLocal()
     try:
@@ -166,7 +168,7 @@ def update_transaction(code):
     finally:
         session.close()
 
-@transaction_bp.route('/transaction/<code>', methods=['DELETE'])
+@transaction_bp.route('/transactions/<code>', methods=['DELETE'])
 def delete_transaction(code):
     session = SessionLocal()
     try:
@@ -185,7 +187,7 @@ def delete_transaction(code):
     finally:
         session.close()
 
-@transaction_bp.route('/transaction/<code>', methods=['GET'])
+@transaction_bp.route('/transactions/<code>', methods=['GET'])
 def get_transaction_details(code):
     session = SessionLocal()
     try:
